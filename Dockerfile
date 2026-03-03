@@ -10,5 +10,10 @@ COPY server.py /app/server.py
 COPY drivers/ /app/drivers/
 
 ENV VERTICA_JDBC_JAR=/app/drivers/vertica-jdbc.jar
+ENV VERTICA_EXPORT_ROOT=/app/exports
+ENV VERTICA_WORKSPACE_ROOT=/app/workspace
+ENV VERTICA_AUDIT_LOG=/app/audit/vertica-audit.jsonl
+
+RUN mkdir -p /app/exports /app/workspace /app/audit
 
 CMD ["python", "/app/server.py"]
