@@ -3,11 +3,27 @@ services:
     build: .
     container_name: vertica-mcp
     environment:
+      # Connection
       VERTICA_HOST: "vertica.example.internal"
       VERTICA_PORT: "5433"
       VERTICA_DB: "warehouse"
       VERTICA_USER: "readonly_user"
       VERTICA_PASS: "CHANGE_ME"
+
+      # Optional safety controls
       VERTICA_SCHEMA_ALLOWLIST: "prod,stage"
+      VERTICA_APPROVAL_MODE: "on"   # off|on. When on, export/run_sql_file require approved=true
+
+      # Paths inside container
+      VERTICA_EXPORT_ROOT: "/app/exports"
+      VERTICA_WORKSPACE_ROOT: "/app/workspace"
+      VERTICA_AUDIT_LOG: "/app/audit/vertica-audit.jsonl"
+
     stdin_open: true
     tty: true
+
+    # OPTIONAL: Mount folders from host for .sql files and exported outputs
+    # volumes:
+    #   - ./workspace:/app/workspace
+    #   - ./exports:/app/exports
+    #   - ./audit:/app/audit
