@@ -1,0 +1,13 @@
+services:
+  vertica-mcp:
+    build: .
+    container_name: vertica-mcp
+    environment:
+      VERTICA_HOST: "vertica.example.internal"
+      VERTICA_PORT: "5433"
+      VERTICA_DB: "warehouse"
+      VERTICA_USER: "readonly_user"
+      VERTICA_PASS: "CHANGE_ME"
+      VERTICA_SCHEMA_ALLOWLIST: "prod,stage"
+    stdin_open: true
+    tty: true
